@@ -1,26 +1,18 @@
 $(document).ready(function(va){
 	
   var targetNumber = 19;
-  var numberOptions = [0, 0, 0, 0];
+  
+  //
+  var crystalIdList = [0, 0, 0, 0];
   var images = [];
   var numWins = 0;
   var numLosses = 0;
   var counter = 0;
+  var imageIdPrefix = "imgid";
 
-  /*
-  class ImgInfo
-      class
-      src
-      data-crystalvalue
 
-  */
-
- 
- 
-  // Now for the hard part. Creating multiple crystals each with their own unique number value.
-
-  // Next we create a for loop to create crystals for every numberOption.
-  for (var i = 0; i < numberOptions.length; i++) {
+  // Next we create a for loop to create crystals .
+  for (var i = 0; i < crystalIdList.length; i++) {
 
     // For each iteration, we will create an imageCrystal
     var imageCrystal = $("<img>");
@@ -34,15 +26,17 @@ $(document).ready(function(va){
 
     // Each imageCrystal will be given a data attribute called data-crystalValue.
     // This data attribute will be set equal to the array value.
+	imageCrystal.attr("data-crystalvalue", crystalIdList[i]);
 	
-    imageCrystal.attr("data-crystalvalue", numberOptions[i]);
-    var imId = "imgid" + i;
+	// Each imageCrystal will be given an id - the ids have a prefix of "imgid" - 
+	//  For example first crystal <img> will have an id of "imgid0" ,
+	//  the second <img> will have an id of "imgid1" and so on. 
+    var imId = imageIdPrefix + i;
     imageCrystal.attr("id", imId);
-	//alert("in start loop assigning image the data-crystalvalue  attribute " + i + " =" + numberOptions[i]);
-     alert("image has an id of " + imId);
+	 
     // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
     $("#crystals").append(imageCrystal);
-   // images.push(imageCrystal);
+
   }
 
    function startGame(){
@@ -54,29 +48,16 @@ $(document).ready(function(va){
 
   function setDataValuesForCrystals(){
 	  var imId = "";
-	  for (var i = 0; i < numberOptions.length; i++){
-		  numberOptions[i] = getRandomInteger(1,12);
-		  imId = "imgid" + i;
-		  $("#" + imId).attr("data-crystalvalue", numberOptions[i]);
+	  for (var i = 0; i < crystalIdList.length; i++){
+		   imId = imageIdPrefix + i;
+		   $("#" + imId).attr("data-crystalvalue", getRandomInteger(1,12));
+		  crystalIdList[i] = getRandomInteger(1,12);
+		 // $("#" + imId).attr("data-crystalvalue", crystalIdList[i]);
 		 // alert("setDataValuesForCrystals data-crystalvalue for #" + imId + " is " + $("#" + imId ).attr("data-crystalvalue"));
 
 	  }
-    /*
-    for (var i = 0; i < images.length; i++){
-      images[i].attr("data-crystalvalue",getRandomInteger(1,12));
-      alert("setDataValuesForCrystals data-crystalvalue for #" + images[i].attr("id")  +  " is " + images[i].attr("data-crystalvalue"));
-
-    }
-    */
-
-	  
   }
-  /*
-  ImageInfo
-      amount.
-
-  */
-  
+   
   function displayScores() {
 	      $("#number-to-guess").text(targetNumber);
 		  $("#wins").text("Wins: " + numWins);
@@ -87,9 +68,7 @@ $(document).ready(function(va){
   function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
-
-  
-  
+    
   // This time, our click event applies to every single crystal on the page. Not just one.
   $(".crystal-image").on("click", function() {
 
@@ -99,17 +78,11 @@ $(document).ready(function(va){
     // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
     
     var crystalValue = ($(this).attr("data-crystalvalue"));
-	//console.log("this type is " + typeof(this));
-	//alert("click pressed - crystalValue is " + crystalValue);
 	var crystVal = parseInt(crystalValue);
+	
     // We then add the crystalValue to the user's "counter" which is a global variable.
     // Every click, from every crystal adds to the global counter.
     counter += crystVal;
-
-	console.log("crystVal is " + crystVal);
-	console.log("counter is " + counter);
-    // All of the same game win-lose logic applies. So the rest remains unchanged.
-    //alert("New total: " + counter);
 
     if (counter === targetNumber) {
 	  numWins++;
