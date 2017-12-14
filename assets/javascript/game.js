@@ -52,14 +52,12 @@ $(document).ready(function(va){
 		   imId = imageIdPrefix + i;
 		   $("#" + imId).attr("data-crystalvalue", getRandomInteger(1,12));
 		  crystalIdList[i] = getRandomInteger(1,12);
-		 // $("#" + imId).attr("data-crystalvalue", crystalIdList[i]);
-		 // alert("setDataValuesForCrystals data-crystalvalue for #" + imId + " is " + $("#" + imId ).attr("data-crystalvalue"));
 
 	  }
   }
    
   function displayScores() {
-	      $("#number-to-guess").text(targetNumber);
+	    $("#target-number").text(targetNumber);
 		  $("#wins").text("Wins: " + numWins);
 		  $("#losses").text("Losses: " + numLosses);
 		  $("#currentTotal").text("Current total is " +  counter);
@@ -78,7 +76,7 @@ $(document).ready(function(va){
     // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
     
     var crystalValue = ($(this).attr("data-crystalvalue"));
-	var crystVal = parseInt(crystalValue);
+	  var crystVal = parseInt(crystalValue);
 	
     // We then add the crystalValue to the user's "counter" which is a global variable.
     // Every click, from every crystal adds to the global counter.
@@ -87,18 +85,18 @@ $(document).ready(function(va){
     if (counter === targetNumber) {
 	  numWins++;
 	  displayScores();
-      alert("You win!");
-    console.log("You win!");
+    $("#lastWinLoss").text("You Win!");
+    console.log("You Win!");
 	  startGame();
     }
 
     else if (counter >= targetNumber) {
+    $("#lastWinLoss").text("You Lost!");
 	  numLosses++;
 	  displayScores();
-      alert("You lose!!");
-	  startGame();
+    startGame();
     }
-	else {
+	 else {
 	  displayScores();
 	}
 
