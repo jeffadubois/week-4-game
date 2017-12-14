@@ -9,6 +9,7 @@ $(document).ready(function(va){
   var numLosses = 0;
   var counter = 0;
   var imageIdPrefix = "imgid";
+  var LastTimeWinLoss = "";
 
 
   // Next we create a for loop to create crystals .
@@ -85,20 +86,35 @@ $(document).ready(function(va){
     if (counter === targetNumber) {
 	  numWins++;
 	  displayScores();
-    $("#lastWinLoss").text("You Win!");
+    document.getElementById("lastWinLoss").style.visibility = "visible";
+    document.getElementById("newSession").style.visibility = "visible";
+
+    $("#lastWinLoss").text("You Won!");
+    $("#newSession").text("Next click on a crystal will start a new session");
+
     console.log("You Win!");
+    lastTimeWinLoss = "win";
 	  startGame();
     }
 
     else if (counter >= targetNumber) {
-    $("#lastWinLoss").text("You Lost!");
+    document.getElementById("lastWinLoss").style.visibility = "visible";
+    document.getElementById("newSession").style.visibility = "visible";
+
+    $("#lastWinLoss").text("You Lost");
+    $("#newSession").text("Next click on a crystal will start a new session");
 	  numLosses++;
 	  displayScores();
+    lastTimeWinLoss = "loss";
     startGame();
     }
-	 else {
-	  displayScores();
-	}
+	  else {
+        //alert("entered else");
+        $("#lastWinLoss").text = "some text";
+        document.getElementById("lastWinLoss").style.visibility = "hidden";
+        document.getElementById("newSession").style.visibility = "hidden";
+	      displayScores();
+	  }
 
   });
   
