@@ -52,8 +52,6 @@ $(document).ready(function(va){
 	  for (var i = 0; i < crystalIdList.length; i++){
 		   imId = imageIdPrefix + i;
 		   $("#" + imId).attr("data-crystalvalue", getRandomInteger(1,12));
-		  crystalIdList[i] = getRandomInteger(1,12);
-
 	  }
   }
    
